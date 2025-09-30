@@ -7,11 +7,6 @@ export class PurchaseDto {
   @IsNotEmpty()
   orderId: string;
 
-  @ApiProperty({ example: 99.99 })
-  @IsNumber()
-  @Min(0.01)
-  amount: number;
-
   @ApiProperty({ example: '4111111111111111' })
   @IsString()
   @IsNotEmpty()
@@ -48,11 +43,6 @@ export class AuthorizeDto {
   @IsString()
   @IsNotEmpty()
   orderId: string;
-
-  @ApiProperty({ example: 99.99 })
-  @IsNumber()
-  @Min(0.01)
-  amount: number;
 
   @ApiProperty({ example: '4111111111111111' })
   @IsString()

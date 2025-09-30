@@ -36,7 +36,7 @@ export class PaymentsService {
 
     try {
       const gatewayResponse = await this.authorizeNet.chargeCreditCard(
-        purchaseDto.amount,
+        Number(order.amount),
         purchaseDto.cardNumber,
         purchaseDto.expirationDate,
         purchaseDto.cvv,
@@ -48,7 +48,7 @@ export class PaymentsService {
           orderId: order.id,
           type: 'PURCHASE',
           status: 'CAPTURED',
-          amount: purchaseDto.amount,
+          amount: Number(order.amount),
           currency: order.currency,
           transactionId: gatewayResponse.transactionId,
           gatewayResponseCode: gatewayResponse.responseCode,
@@ -80,7 +80,7 @@ export class PaymentsService {
           orderId: order.id,
           type: 'PURCHASE',
           status: 'FAILED',
-          amount: purchaseDto.amount,
+          amount: Number(order.amount),
           currency: order.currency,
           maskedCardNumber: purchaseDto.cardNumber.slice(-4),
           cardType: this.detectCardType(purchaseDto.cardNumber),
@@ -105,7 +105,7 @@ export class PaymentsService {
 
     try {
       const gatewayResponse = await this.authorizeNet.authorizeCreditCard(
-        authorizeDto.amount,
+        Number(order.amount),
         authorizeDto.cardNumber,
         authorizeDto.expirationDate,
         authorizeDto.cvv,
@@ -117,7 +117,7 @@ export class PaymentsService {
           orderId: order.id,
           type: 'AUTHORIZE',
           status: 'AUTHORIZED',
-          amount: authorizeDto.amount,
+          amount: Number(order.amount),
           currency: order.currency,
           transactionId: gatewayResponse.transactionId,
           gatewayResponseCode: gatewayResponse.responseCode,
@@ -149,7 +149,7 @@ export class PaymentsService {
           orderId: order.id,
           type: 'AUTHORIZE',
           status: 'FAILED',
-          amount: authorizeDto.amount,
+          amount: Number(order.amount),
           currency: order.currency,
           maskedCardNumber: authorizeDto.cardNumber.slice(-4),
           cardType: this.detectCardType(authorizeDto.cardNumber),
