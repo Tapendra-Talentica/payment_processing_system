@@ -22,13 +22,14 @@ export class AdminService {
   }
 
   async getDashboardStats() {
-    const [totalOrders, totalTransactions, pendingOrders, capturedTransactions] =
-      await Promise.all([
+    const [totalOrders, totalTransactions, pendingOrders, capturedTransactions] = await Promise.all(
+      [
         this.prisma.order.count(),
         this.prisma.transaction.count(),
         this.prisma.order.count({ where: { status: 'PENDING' } }),
         this.prisma.transaction.count({ where: { status: 'CAPTURED' } }),
-      ]);
+      ],
+    );
 
     return {
       totalOrders,

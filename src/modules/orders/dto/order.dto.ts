@@ -27,7 +27,10 @@ export class CreateOrderDto {
 }
 
 export class UpdateOrderDto {
-  @ApiPropertyOptional({ example: 'PENDING', enum: ['PENDING', 'AUTHORIZED', 'CAPTURED', 'CANCELLED', 'REFUNDED', 'FAILED'] })
+  @ApiPropertyOptional({
+    example: 'PENDING',
+    enum: ['PENDING', 'AUTHORIZED', 'CAPTURED', 'CANCELLED', 'REFUNDED', 'FAILED'],
+  })
   @IsString()
   @IsOptional()
   status?: OrderStatus;

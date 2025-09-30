@@ -1,20 +1,16 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsString,
-  IsNumber,
-  IsNotEmpty,
-  Min,
-  Max,
-  Length,
-  Matches,
-  IsOptional,
-} from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty, Min, Length, Matches, IsOptional } from 'class-validator';
 
 export class PurchaseDto {
   @ApiProperty({ example: 'order-uuid-here' })
   @IsString()
   @IsNotEmpty()
   orderId: string;
+
+  @ApiProperty({ example: 99.99 })
+  @IsNumber()
+  @Min(0.01)
+  amount: number;
 
   @ApiProperty({ example: '4111111111111111' })
   @IsString()
@@ -33,6 +29,18 @@ export class PurchaseDto {
   @IsNotEmpty()
   @Length(3, 4)
   cvv: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  billingAddress?: {
+    firstName?: string;
+    lastName?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    country?: string;
+  };
 }
 
 export class AuthorizeDto {
@@ -40,6 +48,11 @@ export class AuthorizeDto {
   @IsString()
   @IsNotEmpty()
   orderId: string;
+
+  @ApiProperty({ example: 99.99 })
+  @IsNumber()
+  @Min(0.01)
+  amount: number;
 
   @ApiProperty({ example: '4111111111111111' })
   @IsString()
@@ -58,6 +71,18 @@ export class AuthorizeDto {
   @IsNotEmpty()
   @Length(3, 4)
   cvv: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  billingAddress?: {
+    firstName?: string;
+    lastName?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    country?: string;
+  };
 }
 
 export class CaptureDto {
@@ -91,4 +116,9 @@ export class RefundDto {
   @Min(0.01)
   @IsOptional()
   amount?: number;
+
+  @ApiPropertyOptional({ example: 'Customer requested refund' })
+  @IsString()
+  @IsOptional()
+  reason?: string;
 }
