@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, IsNumber, IsOptional, IsNotEmpty, Min, IsObject } from 'class-validator';
+import { OrderStatus } from '@prisma/client';
 
 export class CreateOrderDto {
   @ApiProperty({ example: 'customer-uuid-here' })
@@ -26,10 +27,10 @@ export class CreateOrderDto {
 }
 
 export class UpdateOrderDto {
-  @ApiPropertyOptional({ example: 'PENDING' })
+  @ApiPropertyOptional({ example: 'PENDING', enum: ['PENDING', 'AUTHORIZED', 'CAPTURED', 'CANCELLED', 'REFUNDED', 'FAILED'] })
   @IsString()
   @IsOptional()
-  status?: string;
+  status?: OrderStatus;
 
   @ApiPropertyOptional()
   @IsObject()

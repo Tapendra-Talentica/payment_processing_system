@@ -50,10 +50,10 @@ describe('AuthService', () => {
         email: 'test@example.com',
         password: 'hashedPassword',
         name: 'Test User',
-        role: 'CUSTOMER',
+        role: 'CUSTOMER' as const,
         createdAt: new Date(),
         updatedAt: new Date(),
-      };
+      } as any;
 
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
@@ -79,10 +79,10 @@ describe('AuthService', () => {
         email: 'test@example.com',
         password: 'hashedPassword',
         name: 'Test User',
-        role: 'CUSTOMER',
+        role: 'CUSTOMER' as const,
         createdAt: new Date(),
         updatedAt: new Date(),
-      };
+      } as any;
 
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
@@ -99,10 +99,10 @@ describe('AuthService', () => {
         id: '1',
         email: 'test@example.com',
         name: 'Test User',
-        role: 'CUSTOMER',
+        role: 'CUSTOMER' as const,
         createdAt: new Date(),
         updatedAt: new Date(),
-      };
+      } as any;
 
       jest.spyOn(service, 'validateUser').mockResolvedValue(mockUser);
       jest.spyOn(jwtService, 'sign').mockReturnValue('mock-jwt-token');
@@ -137,10 +137,10 @@ describe('AuthService', () => {
         email: 'new@example.com',
         password: 'hashedPassword',
         name: 'New User',
-        role: 'CUSTOMER',
+        role: 'CUSTOMER' as const,
         createdAt: new Date(),
         updatedAt: new Date(),
-      };
+      } as any;
 
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
       jest.spyOn(prismaService.user, 'create').mockResolvedValue(mockUser);
@@ -163,10 +163,10 @@ describe('AuthService', () => {
         email: 'existing@example.com',
         password: 'hashedPassword',
         name: 'Existing User',
-        role: 'CUSTOMER',
+        role: 'CUSTOMER' as const,
         createdAt: new Date(),
         updatedAt: new Date(),
-      };
+      } as any;
 
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(existingUser);
 

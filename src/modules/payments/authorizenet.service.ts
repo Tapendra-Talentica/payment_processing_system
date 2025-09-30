@@ -1,5 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import * as ApiContracts from 'authorizenet';
+import * as ApiControllers from 'authorizenet';
 
 @Injectable()
 export class AuthorizeNetService {
@@ -9,11 +11,22 @@ export class AuthorizeNetService {
   private readonly environment: string;
 
   constructor(private readonly configService: ConfigService) {
-    this.apiLoginId = this.configService.get<string>('AUTHORIZENET_API_LOGIN_ID');
-    this.transactionKey = this.configService.get<string>('AUTHORIZENET_TRANSACTION_KEY');
+    this.apiLoginId = this.configService.get<string>('AUTHORIZENET_API_LOGIN_ID') || '';
+    this.transactionKey = this.configService.get<string>('AUTHORIZENET_TRANSACTION_KEY') || '';
     this.environment = this.configService.get<string>('AUTHORIZENET_ENVIRONMENT') || 'sandbox';
 
+    if (this.environment === 'sandbox') {
+      ApiContracts.Constants.endpoint = 'https://apitest.authorize.net/xml/v1/request.api';
+    }
+
     this.logger.log(`Authorize.Net initialized in ${this.environment} mode`);
+  }
+
+  private getMerchantAuth() {
+    const merchantAuth = new ApiContracts.MerchantAuthenticationType();
+    merchantAuth.setName(this.apiLoginId);
+    merchantAuth.setTransactionKey(this.transactionKey);
+    return merchantAuth;
   }
 
   async chargeCreditCard(amount: number, cardNumber: string, expirationDate: string, cardCode: string) {

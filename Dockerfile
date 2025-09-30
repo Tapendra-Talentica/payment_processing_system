@@ -5,7 +5,10 @@ WORKDIR /app
 COPY package*.json ./
 COPY prisma ./prisma/
 
-RUN npm ci
+# Remove any existing .npmrc and install without authentication
+RUN rm -f .npmrc && \
+    npm config set registry https://registry.npmjs.org/ && \
+    npm install --no-audit --no-fund
 
 COPY . .
 

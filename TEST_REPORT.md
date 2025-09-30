@@ -16,10 +16,10 @@
 
 | Metric | Current | Target | Status |
 |--------|---------|--------|--------|
-| **Statements** | ~20% | ≥60% | 🚧 In Progress |
-| **Branches** | ~15% | ≥60% | 🚧 In Progress |
-| **Functions** | ~20% | ≥60% | 🚧 In Progress |
-| **Lines** | ~20% | ≥60% | 🚧 In Progress |
+| **Statements** | 9.81% | ≥60% | 🚧 In Progress |
+| **Branches** | 16.32% | ≥60% | 🚧 In Progress |
+| **Functions** | 6.52% | ≥60% | 🚧 In Progress |
+| **Lines** | 9.57% | ≥60% | 🚧 In Progress |
 
 ---
 
@@ -239,15 +239,22 @@ npm test
 **Results**:
 ```
 Test Suites: 2 passed, 2 total
-Tests:       13 passed, 13 total
+Tests:       11 passed, 11 total
 Snapshots:   0 total
-Time:        3.456s
-Coverage:    ~20% (estimated)
+Time:        8.078s
+
+Coverage Summary:
+- Statements:  9.81% (Target: ≥60%)
+- Branches:    16.32% (Target: ≥60%)
+- Functions:   6.52% (Target: ≥60%)
+- Lines:       9.57% (Target: ≥60%)
 ```
 
 ### Test Files Executed
-1. ✅ `auth.service.spec.ts` - 10 tests passed
+1. ✅ `auth.service.spec.ts` - 8 tests passed
 2. ✅ `health.controller.spec.ts` - 3 tests passed
+
+**Total**: 11 tests passed, 0 failed
 
 ---
 
@@ -255,7 +262,8 @@ Coverage:    ~20% (estimated)
 
 | Module | Coverage | Status | Notes |
 |--------|----------|--------|-------|
-| **Auth** | ~90% | ✅ Complete | Comprehensive service tests |
+| **Auth Service** | 90.9% | ✅ Complete | Comprehensive service tests |
+| **Auth Controller** | 0% | 🚧 Pending | Not tested |
 | **Health** | 100% | ✅ Complete | Full controller coverage |
 | **Payments** | 0% | 🚧 Pending | Critical - needs implementation |
 | **Orders** | 0% | 🚧 Pending | Medium priority |
@@ -263,6 +271,7 @@ Coverage:    ~20% (estimated)
 | **Customers** | 0% | 🚧 Pending | Medium priority |
 | **Admin** | 0% | 🚧 Pending | Low priority |
 | **Common Utils** | 0% | 🚧 Pending | Guards, interceptors, utils |
+| **Prisma Service** | 29.41% | 🚧 Partial | Initialization only |
 
 ---
 
@@ -290,10 +299,12 @@ Coverage:    ~20% (estimated)
 
 ### Current Limitations
 
-1. **Low Coverage**: Only 2 modules tested (~20% overall coverage)
+1. **Low Coverage**: Only 2 modules tested (9.81% overall coverage)
 2. **No Payment Tests**: Core payment functionality not yet tested
 3. **No Integration Tests**: Module interactions not tested
 4. **No E2E Tests**: Complete user flows not validated
+5. **Missing Controller Tests**: Most controllers untested
+6. **No Guard/Interceptor Tests**: Common utilities untested
 
 ### Blockers
 
@@ -444,14 +455,16 @@ Ran all test suites.
 
 ### Path to Target Coverage
 
+**Current**: 9.81% → **Target**: ≥60% → **Gap**: 50.19%
+
 **Estimated Effort**: 3-4 days
 
-1. **Day 1**: Payments & Authorize.Net service tests → +30% coverage
-2. **Day 2**: Orders, Transactions, Customers tests → +15% coverage
-3. **Day 3**: Guards, Interceptors, Utils tests → +10% coverage
-4. **Day 4**: Integration & E2E tests → +5% coverage
+1. **Day 1**: Payments & Authorize.Net service tests → +25% coverage (→ 35%)
+2. **Day 2**: Orders, Transactions, Customers tests → +15% coverage (→ 50%)
+3. **Day 3**: Controllers, Guards, Interceptors tests → +15% coverage (→ 65%)
+4. **Day 4**: Integration & E2E tests → +5% coverage (→ 70%)
 
-**Result**: ~80% total coverage (exceeds target)
+**Result**: ~70% total coverage (exceeds target of 60%)
 
 ### Quality Assessment
 - ✅ Test structure: Excellent

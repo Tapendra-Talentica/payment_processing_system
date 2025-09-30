@@ -133,7 +133,7 @@ LOG_LEVEL=info
 
 ```bash
 # Start PostgreSQL container
-npm run docker:up
+docker compose up -d
 
 # Generate Prisma client
 npm run prisma:generate
@@ -267,21 +267,37 @@ The project is configured to enforce **≥60% test coverage**.
 
 ## 🐳 Docker Deployment
 
+### Recommended Approach: PostgreSQL Only
+
 ```bash
-# Start all services (PostgreSQL + API)
-docker-compose up -d
+# Start PostgreSQL container
+docker compose up -d postgres
 
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-
-# Stop and remove volumes
-docker-compose down -v
+# Then run the application locally (see step 4 above)
+npm run start:dev
 ```
 
+### Docker Management Commands
+
+```bash
+# View PostgreSQL logs
+docker compose logs -f postgres
+
+# Stop PostgreSQL
+docker compose down
+
+# Stop and remove volumes (clean slate)
+docker compose down -v
+
+# Restart PostgreSQL
+docker compose restart postgres
+```
+
+**Note**: The application is best run locally for development. The Docker setup provides PostgreSQL database only.
+
 ## 📖 API Documentation
+
+### Swagger UI (Interactive)
 
 Once the application is running, visit:
 ```
@@ -293,6 +309,23 @@ You'll find complete interactive API documentation with:
 - Authentication requirements
 - Example payloads
 - Try-it-out functionality
+
+### Postman Collection
+
+Import the Postman collection for testing:
+- **File**: `POSTMAN_COLLECTION.json`
+- **Features**:
+  - All API endpoints organized by category
+  - Pre-configured test data
+  - Automatic token management
+  - Environment variables for IDs
+  - Test scripts to save responses
+
+**To use**:
+1. Import `POSTMAN_COLLECTION.json` into Postman
+2. Collection variables are pre-configured
+3. Start with "Login" to get authentication token
+4. Token is automatically saved for subsequent requests
 
 ## 🔧 Development Scripts
 

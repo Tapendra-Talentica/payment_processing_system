@@ -38,14 +38,14 @@ import { HealthModule } from './modules/health/health.module';
             : undefined,
         level: process.env.LOG_LEVEL || 'info',
         serializers: {
-          req(req) {
+          req(req: any) {
             return {
               id: req.id,
               method: req.method,
               url: req.url,
             };
           },
-          res(res) {
+          res(res: any) {
             return {
               statusCode: res.statusCode,
             };

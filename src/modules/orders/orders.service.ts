@@ -23,7 +23,7 @@ export class OrdersService {
     });
   }
 
-  async findAll(page = 1, limit = 10, customerId?: string, status?: string) {
+  async findAll(page = 1, limit = 10, customerId?: string, status?: any) {
     const { skip, take } = getPaginationParams(page, limit);
 
     const where = {
